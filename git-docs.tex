@@ -167,20 +167,20 @@ If you wish to restore to earlier commits, you would enter \\
 {\bf Working with a Remote Repository} \\
 
 \noindent
-A {\tt git} repository can be deployed as a remote repository (i.e. \href{http://github.com}{github}). Assuming the repository has been constructed. This assumes you have a github account established.
+A {\tt git} repository can be deployed as a remote repository. The steps outlined in the section describe using \href{http://github.com}{github} as a remote repository. This requires  having a github account and the repository has been constructed. Follow the instructions for creating a repository on github. This repository will initially be empty. You will then push (i.e. move) a local repository to github.\\
 
 \noindent
-Create a github repository -- let's assume the name of that repository is {\tt git-repo} and is associated with the user {\tt greggagne} . The url for this repository appears as \\
+Let's assume the name of that repository on github is {\tt git-repo} and is associated with the user {\tt charliebrown} . The {\small URL} for this github repository appears as \\
 
-{\tt https://github.com/greggagne/Hello-World.git} \\
-
-\noindent
-Once you have committed changes to your repository, you can then move that repo to github: \\
-
-{\tt git remote add origin https://github.com/username/Hello-World.git} \\
+{\tt https://github.com/charliebrown/git-repo.git} \\
 
 \noindent
-This specifies the name of the repository as the remote origin. \\
+Initially, you will create a local repository and commit changes to it outlined in the steps for creating a repository and committing to it. Once you have committed changes to your repository, you can then push the repository to github according to the following steps: \\
+
+{\tt git remote add origin https://github.com/charliebrown/git-repo.git} \\
+
+\noindent
+This specifies the {\small URL} name of the repository as the remote origin. \\
 
 \noindent
 Now, you must {\bf push} your local repo to github: \\
@@ -193,7 +193,7 @@ This sends your commits in your local repository to github. \\
 \noindent
 Another collaborator can then {\bf clone} the repository by entering \\
 
-{\tt git clone https://github.com/username/Hello-World.git} \\
+{\tt git clone https://github.com/charliebrown/git-repo.git} \\
 
 \noindent
 If one makes changes to the contents of their local repository, they must add the changed file to the staging area, followed by committing the change. Changes are then pushed to the remote repository. \\
