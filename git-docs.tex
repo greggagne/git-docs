@@ -1,0 +1,210 @@
+% XeLaTeX can use any Mac OS X font. See the setromanfont command below.
+% Input to XeLaTeX is full Unicode, so Unicode characters can be typed directly into the source.
+
+% The next lines tell TeXShop to typeset with xelatex, and to open and save the source with Unicode encoding.
+
+%!TEX TS-program = xelatex
+%!TEX encoding = UTF-8 Unicode
+
+\documentclass[12pt]{article}
+\usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
+\geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
+%\geometry{landscape}                % Activate for for rotated page geometry
+%\usepackage[parfill]{parskip}    % Activate to begin paragraphs with an empty line rather than an indent
+\usepackage{graphicx}
+\usepackage{amssymb}
+\usepackage{hyperref}
+
+% Will Robertson's fontspec.sty can be used to simplify font choices.
+% To experiment, open /Applications/Font Book to examine the fonts provided on Mac OS X,
+% and change "Hoefler Text" to any of these choices.
+
+\usepackage{fontspec,xltxtra,xunicode}
+\defaultfontfeatures{Mapping=tex-text}
+\setromanfont[Mapping=tex-text]{Hoefler Text}
+\setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Gill Sans}
+\setmonofont[Scale=MatchLowercase]{Andale Mono}
+
+\title{An Overview of Using {\tt git}}
+\author{Westminster College Computer Science Department \\ \\ Greg Gagne}
+%\date{}                                           % Activate to display a given date or no date
+
+\begin{document}
+\maketitle
+
+\newpage
+
+\noindent
+{\bf How to Create a Repository} \\
+
+\noindent
+Make a directory where your repository will be stored. \\
+
+{\tt mkdir git-repo} \\
+
+\noindent
+and now {\tt cd} to that directory. \\ 
+
+\noindent
+Next, initialize the {\tt git} repository: \\
+
+{\tt git init} \\
+
+\noindent
+To determine the status of your repository, enter: \\
+
+{\tt git status} \\
+
+\noindent
+Now, you must populate the repository with some files. Create the following 3 files in the {\tt git-repo} directory: \\
+
+{\tt file1.txt} \\ 
+
+{\tt file2.txt} \\ 
+
+{\tt file3.txt} \\ 
+
+\noindent
+{\bf How to Commit to the Repository} \\
+
+\noindent
+{\tt git} distinguishes between {\bf staged} and {\bf unstaged} files. Only staged files can be committed to the repository. To stage a file, you must add it to the repository: \\
+
+{\tt git add file1.txt file2.txt file3.txt} \\
+
+\noindent
+This could have been simplified with the command \\
+
+{\tt git add -A} \\
+
+\noindent
+which adds all files to the staging. \\
+
+\noindent
+Next, you must commit the contents of the staging area to the repository: \\
+
+{\tt git commit -m "Initial Commit"} \\
+
+\noindent
+The string following the {\tt -m} option allows you to enter a string message describing the changes you are committing. In this instance, since it is only the initial commit, we will provide the appropriate message. \\
+
+\noindent
+We may not want all files sent to the staging area and committed to the repository. In this instance, we can use a {\tt .gitignore} file which specifies which files we {\bf do not} want committed to the repository. \\
+
+\noindent
+{\bf Branching and Merging} \\
+
+\noindent
+A git repository has a single {\bf master} branch. From this master branch, you may create separate branches to try different features. The basic approach is that your master branch contains your working code, any separate {\bf developer} branches contain features you are experimenting with. When code you are experimenting with has passed tests, you can then integrate -- or {\bf merge} -- the development branch. \\
+
+\noindent
+To create a branch named {\tt dev} , enter the command \\
+
+{\tt git branch dev} \\
+
+\noindent 
+which creates the branch named {\tt dev} . Next you must switch to that using using the {\tt checkout}
+command: \\
+
+{\tt git checkout dev} \\
+
+\noindent
+This switches your branch to the {\tt dev} branch. Now, any work you perform in the {\tt dev} branch is independent from the master branch. The {\tt checkout} command allows you to switch between any branches you wish. \\
+
+\noindent
+You can also merge your {\tt dev} branch with the master by entering \\
+
+{\tt git checkout master} 
+
+{\tt git merge dev} \\
+
+\noindent
+This first switches you back to the master branch, and then merges any changes in the {\tt dev} branch with the master branch. \\
+
+
+\noindent
+{\bf Restoring Previous Versions from Repository} \\
+
+\noindent
+Each {\tt git} commit associates an {\small MD5} checksum with the transaction. This checksum allows you to revert to previous instances from the repository. For example, you may have modified a version of a file, and then realized your modified version no longer works. The easiest thing to do is restore the earlier version from the repository. \\
+
+\noindent
+The following command outputs the log (the checksum associated with each commit): \\
+
+{\tt git log} \\
+
+\noindent
+If you can determine the checksum associated with the previous commit, you can use that checksum to restore a file. Let's assume you wish to restore the file {\tt file1.txt} and the checksum is {\tt  fc73a5a9e0b8c46c15afd2a656794d48621c4647}. You would enter \\
+
+{\tt git checkout fc73a5a9e0b8c46c15afd2a656794d48621c4647 file1.txt} \\
+
+\noindent
+This will replace your local copy of {\tt file1.txt} with the version (specified with the checksum) from the repository. \\
+
+\noindent
+{\bf Restoring Previous Commit}\\
+
+\noindent
+If you wish to restore the state to the most recent previous commit (let's assume you had made several changes to files and wish to revert to the previous commit), enter: \\
+
+{\tt git reset --hard}\\
+
+\noindent
+This restores the branch to the previous commit. \\
+
+\noindent
+If you wish to restore to earlier commits, you would enter \\
+
+{\tt git reset --hard} // 1 commit back
+ 
+{\tt git reset - -hard HEAD} // 2 commits back 
+
+{\tt git reset  --hard HEAD} // 3 commits back \\
+ 
+ [THIS HAS TO BE CLARIFIED - LOOK AT {\tt man git-reset}]
+
+\noindent
+{\bf Working with a Remote Repository} \\
+
+\noindent
+A {\tt git} repository can be deployed as a remote repository (i.e. \href{http://github.com}{github}). Assuming the repository has been constructed. This assumes you have a github account established.
+
+\noindent
+Create a github repository -- let's assume the name of that repository is {\tt git-repo} and is associated with the user {\tt greggagne} . The url for this repository appears as \\
+
+{\tt https://github.com/greggagne/Hello-World.git} \\
+
+\noindent
+Once you have committed changes to your repository, you can then move that repo to github: \\
+
+{\tt git remote add origin https://github.com/username/Hello-World.git} \\
+
+\noindent
+This specifies the name of the repository as the remote origin. \\
+
+\noindent
+Now, you must {\bf push} your local repo to github: \\
+
+{\tt git push origin master} \\
+
+\noindent
+This sends your commits in your local repository to github. \\
+
+\noindent
+Another collaborator can then {\bf clone} the repository by entering \\
+
+{\tt git clone https://github.com/username/Hello-World.git} \\
+
+\noindent
+If one makes changes to the contents of their local repository, they must add the changed file to the staging area, followed by committing the change. Changes are then pushed to the remote repository. \\
+
+\noindent
+Once someone has cloned a remote repository, they can then get the latest changes by {\bf pulling} from the repository: \\
+
+{\tt git pull origin master} \\
+
+\noindent
+After cloning a repository, a good practice is to always first pull from that remote repository before making changes. This ensures you are always working with the latest updates from the remote repository. \\
+
+
+\end{document}  
