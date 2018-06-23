@@ -6,7 +6,7 @@
 %!TEX TS-program = xelatex
 %!TEX encoding = UTF-8 Unicode
 
-\documentclass[12pt]{article}
+\documentclass[11pt]{article}
 \usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
 \geometry{letterpaper}                   % ... or a4paper or a5paper or ... 
 %\geometry{landscape}                % Activate for for rotated page geometry
@@ -14,6 +14,17 @@
 \usepackage{graphicx}
 \usepackage{amssymb}
 \usepackage{hyperref}
+
+\usepackage{verbatim}
+
+\usepackage{fancyhdr}
+
+\pagestyle{fancy}
+
+\lhead{An Overview of Using {\tt git}}
+
+\rhead{\today}
+
 
 % Will Robertson's fontspec.sty can be used to simplify font choices.
 % To experiment, open /Applications/Font Book to examine the fonts provided on Mac OS X,
@@ -26,7 +37,7 @@
 \setmonofont[Scale=MatchLowercase]{Andale Mono}
 
 \title{An Overview of Using {\tt git}}
-\author{Westminster College Computer Science Department \\ \\ Greg Gagne}
+\author{Westminster College Computer Science Department}
 %\date{}                                           % Activate to display a given date or no date
 
 \begin{document}
@@ -121,7 +132,8 @@ You can also merge your {\tt dev} branch with the master by entering \\
 \noindent
 This first switches you back to the master branch, and then merges any changes in the {\tt dev} branch with the master branch. \\
 
-
+%%%%%%%%%%%%%%%%%
+\begin{comment}
 \noindent
 {\bf Restoring Previous Versions from Repository} \\
 
@@ -162,6 +174,9 @@ If you wish to restore to earlier commits, you would enter \\
 {\tt git reset  --hard HEAD} // 3 commits back \\
  
  [THIS HAS TO BE CLARIFIED - LOOK AT {\tt man git-reset}]
+ 
+ \end{comment}
+ %%%%%%%%%%%%%%%%%%
 
 \noindent
 {\bf Working with a Remote Repository} \\
