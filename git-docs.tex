@@ -36,7 +36,7 @@
 \setsansfont[Scale=MatchLowercase,Mapping=tex-text]{Gill Sans}
 \setmonofont[Scale=MatchLowercase]{Andale Mono}
 
-\title{An Overview of Using {\tt git}}
+\title{An Overview of Using {\tt Git}}
 \author{Westminster College Computer Science Department}
 %\date{}                                           % Activate to display a given date or no date
 
@@ -44,6 +44,15 @@
 \maketitle
 
 \newpage
+
+\noindent
+{\bf Overview} \\
+
+\noindent
+The Git revision control system allows one to maintain different versions of files, create separate branches for experimentation, and restore to previous versions. It is an excellent tool for  managing software projects, both individually as well as collaborating with a group. It can be combined with GitHub which provides a remote repository where several users can collaborate on a shared code base and synchronize and coordinate their activities. \\
+
+\noindent
+This document provides an overview of a few simple git commands and concepts; online documentation provides more thorough coverage of this rich toolset. \\
 
 \noindent
 {\bf How to Create a Repository} \\
@@ -103,6 +112,11 @@ The string following the {\tt -m} option allows you to enter a string message de
 We may not want all files sent to the staging area and committed to the repository. In this instance, we can use a {\tt .gitignore} file which specifies which files we {\bf do not} want committed to the repository. \\
 
 \noindent
+The following command can be used to determine the status of the repository since the most recent commit: \\
+
+{\tt git status} \\
+
+\noindent
 {\bf Branching and Merging} \\
 
 \noindent
@@ -132,52 +146,44 @@ You can also merge your {\tt dev} branch with the master by entering \\
 \noindent
 This first switches you back to the master branch, and then merges any changes in the {\tt dev} branch with the master branch. \\
 
-%%%%%%%%%%%%%%%%%
-\begin{comment}
 \noindent
-{\bf Restoring Previous Versions from Repository} \\
+It is possible the master and {\tt dev} branches have inconsistent changes, and if git is unable to merge the two branches, the files containing conflicts will have messages that must be resolved. Once the conflicts have been addressed, the changes must be committed. \\
 
 \noindent
-Each {\tt git} commit associates an {\small MD5} checksum with the transaction. This checksum allows you to revert to previous instances from the repository. For example, you may have modified a version of a file, and then realized your modified version no longer works. The easiest thing to do is restore the earlier version from the repository. \\
+{\bf Restoring Previous Commits}\\
 
 \noindent
-The following command outputs the log (the checksum associated with each commit): \\
+Each {\tt git} commit associates an {\small MD5} checksum with the transaction. This checksum allows you to revert to previous instances from the repository. \\
+
+\noindent
+The following command outputs the log history of all commits, including the checksum associated with each commit: \\
 
 {\tt git log} \\
 
-\noindent
-If you can determine the checksum associated with the previous commit, you can use that checksum to restore a file. Let's assume you wish to restore the file {\tt file1.txt} and the checksum is {\tt  fc73a5a9e0b8c46c15afd2a656794d48621c4647}. You would enter \\
-
-{\tt git checkout fc73a5a9e0b8c46c15afd2a656794d48621c4647 file1.txt} \\
-
-\noindent
-This will replace your local copy of {\tt file1.txt} with the version (specified with the checksum) from the repository. \\
-
-\noindent
-{\bf Restoring Previous Commit}\\
 
 \noindent
 If you wish to restore the state to the most recent previous commit (let's assume you had made several changes to files and wish to revert to the previous commit), enter: \\
 
-{\tt git reset --hard}\\
+{\tt git reset ----hard [commit]}\\
 
 \noindent
-This restores the branch to the previous commit. \\
+This restores the branch to the specified commit. For example, if the checksum for a commit you wish to revert to is {\tt e9e4794b1218c312d44e7b3b16367ec510ae150a}, you would enter \\
 
 \noindent
 If you wish to restore to earlier commits, you would enter \\
 
-{\tt git reset --hard} // 1 commit back
- 
-{\tt git reset - -hard HEAD} // 2 commits back 
+{\tt git reset ----hard e9e4794b1218c312d44e7b3b16367ec510ae150a} \\
 
-{\tt git reset  --hard HEAD} // 3 commits back \\
- 
- [THIS HAS TO BE CLARIFIED - LOOK AT {\tt man git-reset}]
- 
- \end{comment}
- %%%%%%%%%%%%%%%%%%
+\noindent
+The {\tt reset} command can also be used by specifying which version of {\tt HEAD} to reset to. The value of {\tt HEAD} is the most recent commit, {\tt HEAD\^{}} the second-most, etc. The following examples illustrate: \\
 
+{\tt git reset ----hard HEAD\^{}} // one commit back \\ 
+
+{\tt git reset ----hard HEAD\~{}3} // two commits back \\
+
+\noindent
+and so forth. \\
+  
 \noindent
 {\bf Working with a Remote Repository} \\
 
